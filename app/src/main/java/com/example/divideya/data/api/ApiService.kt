@@ -1,6 +1,8 @@
 package com.example.divideya.data.api
 
+import com.example.divideya.data.model.Expense
 import com.example.divideya.data.model.Item
+import com.example.divideya.data.model.Split
 import com.example.divideya.data.model.User
 import retrofit2.http.*
 
@@ -36,4 +38,33 @@ interface ApiService {
 
     @DELETE("user/{id}")
     suspend fun deleteUser(@Path("id") id: String)
+
+    // Expense CRUD
+    @GET("expense")
+    suspend fun getExpensesByGroup(@Query("groupId") groupId: String): List<Expense>
+
+    @GET("expense/{id}")
+    suspend fun getExpense(@Path("id") id: String): Expense
+
+    @POST("expense")
+    suspend fun createExpense(@Body expense: Expense): Expense
+
+    @PUT("expense/{id}")
+    suspend fun updateExpense(@Path("id") id: String, @Body expense: Expense): Expense
+
+    @DELETE("expense/{id}")
+    suspend fun deleteExpense(@Path("id") id: String)
+
+    // Split CRUD
+    @GET("split")
+    suspend fun getSplitsByExpense(@Query("expenseId") expenseId: String): List<Split>
+
+    @POST("split")
+    suspend fun createSplit(@Body split: Split): Split
+
+    @PUT("split/{id}")
+    suspend fun updateSplit(@Path("id") id: String, @Body split: Split): Split
+
+    @DELETE("split/{id}")
+    suspend fun deleteSplit(@Path("id") id: String)
 }
